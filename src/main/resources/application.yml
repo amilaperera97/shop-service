@@ -15,16 +15,20 @@ spring:
     show-sql: false
     hibernate:
       database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-      ddl-auto: update
+      ddl-auto: create-drop
     open-in-view: false
   datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/scanmyway?currentSchema=shop_info
     driver-class-name: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/scanmyway?currentSchema=shop_info
     username: postgres
     password: admin
     maximum-pool-size: 10
     minimum-idle: 2
     idle-timeout: 120000
+  cloud:
+    loadbalancer:
+      ribbon:
+        enable: false
 
 server:
   servlet:
@@ -54,3 +58,7 @@ endpoints:
     enabled: true
   configprops:
     enabled: true
+
+url:
+  external:
+    uk-address-finder: https://findaddress.io/API
