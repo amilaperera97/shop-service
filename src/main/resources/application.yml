@@ -1,1 +1,56 @@
+spring:
+  application:
+    name: shop-service
+    prefix: shp
+  jpa:
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        hbm2ddl:
+          auto: none
+      temp:
+        use_jdbc_metadata_defaults: false
+    show-sql: false
+    hibernate:
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+      ddl-auto: update
+    open-in-view: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/scanmyway?currentSchema=shop_info
+    username: postgres
+    password: admin
+    maximum-pool-size: 10
+    minimum-idle: 2
+    idle-timeout: 120000
 
+server:
+  servlet:
+    context-path: /shop-service
+  port: ${SERVER_PORT:8898}
+  tomcat:
+    threads:
+      max: ${TOMCAT_MAX_THREADS:50}
+      min-spare: ${TOMCAT_MIN_THREADS:20}
+    accept-count: ${TOMCAT_ACCEPT_COUNT:300}
+    basedir: /
+    accesslog:
+      enabled: true
+      directory: "/logs/shop-service"
+      prefix: access_log
+      buffered: false
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+      pattern: "%h %l %u %t %r %s %b %D"
+
+endpoints:
+  health:
+    enabled: true
+  beans:
+    enabled: true
+  auditevents:
+    enabled: true
+  configprops:
+    enabled: true
