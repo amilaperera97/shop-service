@@ -1,3 +1,9 @@
+shop-service:
+  properties:
+      qrFilePath: E:\UK\MSc\Dissertation\qr\
+      qrHeight: 10000
+      qrWidth: 10000
+
 spring:
   application:
     name: shop-service
@@ -9,13 +15,13 @@ spring:
         enable_lazy_load_no_trans: true
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
         hbm2ddl:
-          auto: none
+          auto: update
       temp:
         use_jdbc_metadata_defaults: false
-    show-sql: false
+    show-sql: true
     hibernate:
-      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.PostgreSQL9Dialect
+      ddl-auto: update
     open-in-view: false
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/scanmyway?currentSchema=shop_info
