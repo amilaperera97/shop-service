@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Map;
 
@@ -50,10 +51,10 @@ public class CommonUtil {
                 new String(data.getBytes(charset), charset),
                 BarcodeFormat.QR_CODE, width, height);
 
-        MatrixToImageWriter.writeToFile(
+        MatrixToImageWriter.writeToPath(
                 matrix,
                 path.substring(path.lastIndexOf('.') + 1),
-                new File(path));
+                Path.of(path));
     }
 
     public static String convertMapToString(Map<?, ?> map) {
