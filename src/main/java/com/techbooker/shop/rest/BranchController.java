@@ -1,10 +1,10 @@
 package com.techbooker.shop.rest;
 
 import com.techbooker.shop.dto.BranchDataDto;
-import com.techbooker.shop.dto.ResponseDto;
 import com.techbooker.shop.exception.custom.ResourceNotFoundException;
 import com.techbooker.shop.service.BranchService;
 import com.techbooker.shop.service.ShopService;
+import com.techbooker.sm.util.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

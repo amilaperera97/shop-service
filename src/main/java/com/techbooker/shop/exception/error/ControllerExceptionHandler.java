@@ -1,6 +1,6 @@
 package com.techbooker.shop.exception.error;
 
-import com.techbooker.shop.dto.ResponseDto;
+import com.techbooker.sm.util.dto.ResponseDto;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.JDBCConnectionException;
 import org.jetbrains.annotations.NotNull;

@@ -1,8 +1,8 @@
 package com.techbooker.shop.rest;
 
-import com.techbooker.shop.dto.ResponseDto;
 import com.techbooker.shop.dto.ShopDataDto;
 import com.techbooker.shop.service.ShopService;
+import com.techbooker.sm.util.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

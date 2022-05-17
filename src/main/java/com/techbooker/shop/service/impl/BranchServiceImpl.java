@@ -35,19 +35,25 @@ public class BranchServiceImpl implements BranchService {
         branch.setCreatedUser(data.getUser().getUsername());
 
         Branch savedBranch = branchRepository.save(branch);
-        return entityConverter.convert(savedBranch, BranchDataDto.class);
+        BranchDataDto branchDataDto = entityConverter.convert(savedBranch, BranchDataDto.class);
+
+        setUserInfo(data, branch, branchDataDto);
+        return branchDataDto;
     }
 
     @Override
     public BranchDataDto update(BranchDataDto data) {
-        Branch savedBranch = branchRepository.save(saveBranchData(data));
-        return entityConverter.convert(savedBranch, BranchDataDto.class);
+        Branch branch = branchRepository.save(saveBranchData(data));
+
+        BranchDataDto branchDataDto = entityConverter.convert(branch, BranchDataDto.class);
+        setUserInfo(data, branch, branchDataDto);
+
+        return branchDataDto;
     }
 
     @Override
     public void delete(BranchDataDto data) {
         branchRepository.findById(data.getId()).ifPresent(this::delete);
-
     }
 
     @Override
@@ -71,9 +77,10 @@ public class BranchServiceImpl implements BranchService {
     private Map<String, String> branchData(BranchDataDto data) {
         Map<String, String> branch = new HashMap<>();
         branch.put("name", data.getName());
-        branch.put("shopId",String.valueOf(data.getShopId()));
+        branch.put("shopId", String.valueOf(data.getShopId()));
         return branch;
     }
+
     private Branch saveBranchData(BranchDataDto data) {
         Branch branch = entityConverter.convert(data, Branch.class);
         branch.setLastUpdatedUser(data.getUser().getUsername());
@@ -87,5 +94,12 @@ public class BranchServiceImpl implements BranchService {
     private void delete(Branch branch) {
         branch.setIsDeleted(true);
         branchRepository.saveAndFlush(branch);
+    }
+
+    private void setUserInfo(BranchDataDto data, Branch branch, BranchDataDto branchDataDto) {
+        if (branchDataDto != null) {
+            branchDataDto.setShopId(branch.getShop().getId());
+            branchDataDto.setUser(data.getUser());
+        }
     }
 }
