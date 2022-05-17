@@ -28,7 +28,7 @@ public class BranchController {
 
     @PostMapping(value = BRANCH, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseDto<BranchDataDto> save(@Valid @RequestBody BranchDataDto data) throws ResourceNotFoundException {
-        shopService.findById(data.getShopId());
+        log.info("Save branch info : {}", data);
         return new ResponseDto<BranchDataDto>().buildSuccessMsgWithData(branchService.save(data));
     }
 

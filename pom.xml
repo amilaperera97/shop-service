@@ -95,7 +95,7 @@
         <dependency>
             <groupId>com.techbooker</groupId>
             <artifactId>common-sm-lib</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <version>${common-sm-lib.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

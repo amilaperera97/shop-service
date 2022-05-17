@@ -1,12 +1,18 @@
 package com.techbooker.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "branch", schema = "shop_info")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Branch extends CommonModel {
 
     @ManyToOne(fetch = FetchType.LAZY)

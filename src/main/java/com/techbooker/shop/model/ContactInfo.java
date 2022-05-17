@@ -1,12 +1,18 @@
 package com.techbooker.shop.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "contact_info", schema = "shop_info")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ContactInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +39,8 @@ public class ContactInfo {
 
     @Column(name = "email")
     private String email;
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode.replaceAll("\\s","");
+    }
 }

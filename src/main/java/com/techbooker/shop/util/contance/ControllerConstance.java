@@ -12,4 +12,8 @@ public class ControllerConstance {
     public static final String SHOP_BY_ID = "/shop/{id}";
     public static final String BRANCH = "/branch";
     public static final String BRANCH_BY_ID = "/branch/{id}";
+
+    //Check validation
+    public static final String BRANCH_VALIDATION = "/valid-branch";
+    public static final String SHOP_VALIDATION = "/valid-shop";
 }

@@ -8,6 +8,8 @@ import lombok.*;
 @Builder
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShopDataDto extends CommonDataDto {
     private Long id;
     private String name;

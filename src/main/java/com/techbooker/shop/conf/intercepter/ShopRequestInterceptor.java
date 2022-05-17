@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,7 @@ import static com.techbooker.sm.util.CommonUtil.traceIDGenerator;
 
 @Component
 @Slf4j
-public class ShopRequestInterceptor extends HandlerInterceptorAdapter {
+public class ShopRequestInterceptor implements HandlerInterceptor {
     public static final String TRACE_ID = "trace-id";
     private static final String START_TIME = "startTime";
 

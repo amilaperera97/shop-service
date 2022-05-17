@@ -2,7 +2,6 @@ package com.techbooker.shop.service;
 
 import com.techbooker.shop.dto.BranchDataDto;
 
-
 import java.util.List;
 
 public interface BranchService {
@@ -12,4 +11,6 @@ public interface BranchService {
     void delete(BranchDataDto data);
     List<BranchDataDto> findAll();
     BranchDataDto findById(Long id);
+
+
 }

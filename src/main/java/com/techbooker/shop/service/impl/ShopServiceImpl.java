@@ -64,7 +64,7 @@ public class ShopServiceImpl implements ShopService {
         Optional<Shop> shop = shopRepository.findById(id).filter(shopInfo -> !shopInfo.getIsDeleted());
 
         if (shop.isPresent()) {
-            return entityConverter.convert(shop, ShopDataDto.class);
+            return entityConverter.convert(shop.get(), ShopDataDto.class);
         }
         throw new ResourceNotFoundException(HttpStatus.NOT_FOUND,
                 messageSource.getMessage("no.records.matches", new Object[0], Locale.ENGLISH));
