@@ -24,7 +24,6 @@ import static com.techbooker.shop.util.contance.ControllerConstance.*;
 public class BranchController {
 
     private final BranchService branchService;
-    private final ShopService shopService;
 
     @PostMapping(value = BRANCH, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseDto<BranchDataDto> save(@Valid @RequestBody BranchDataDto data) throws ResourceNotFoundException {
@@ -34,7 +33,7 @@ public class BranchController {
 
     @PutMapping(value = BRANCH, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseDto<BranchDataDto> update(@Valid @RequestBody BranchDataDto data) throws ResourceNotFoundException {
-        shopService.findById(data.getShopId());
+        branchService.findById(data.getShopId());
         return new ResponseDto<BranchDataDto>().buildSuccessMsgWithData(branchService.update(data));
     }
 

@@ -34,19 +34,10 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public BranchDataDto save(BranchDataDto data) {
-        Branch branch = saveBranchData(data);
-        branch.setCreatedUser(data.getUser().getUsername());
+        Branch branch = saveBranchData(data, false);
+        data.setId(branch.getId());
 
-        Branch savedBranch = branchRepository.save(branch);
-        data.setId(savedBranch.getId());
-
-        String filePath = commonUtil.generateQrCode(QrCodeType.BRANCH, branchData(data));
-        savedBranch.setQrCode(filePath);
-        log.info("QR file path : {} | Branch Id : {}", filePath, savedBranch.getId());
-        //Update QR file
-        branchRepository.saveAndFlush(savedBranch);
-
-        BranchDataDto branchDataDto = entityConverter.convert(savedBranch, BranchDataDto.class);
+        BranchDataDto branchDataDto = entityConverter.convert(branch, BranchDataDto.class);
 
         setUserInfo(data, branch, branchDataDto);
         log.info("Save branch info : {}", branchDataDto);
@@ -55,12 +46,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public BranchDataDto update(BranchDataDto data) {
-        Branch branch = branchRepository.save(saveBranchData(data));
-        data.setId(branch.getId());
-
-        String filePath = commonUtil.generateQrCode(QrCodeType.BRANCH, branchData(data));
-        branch.setQrCode(filePath);
-        branchRepository.saveAndFlush(branch);
+        Branch branch = saveBranchData(data, true);
 
         BranchDataDto branchDataDto = entityConverter.convert(branch, BranchDataDto.class);
         setUserInfo(data, branch, branchDataDto);
@@ -102,9 +88,13 @@ public class BranchServiceImpl implements BranchService {
         return branch;
     }
 
-    private Branch saveBranchData(BranchDataDto data) {
+    private Branch saveBranchData(BranchDataDto data, Boolean isUpdate) {
         Branch branch = entityConverter.convert(data, Branch.class);
-        branch.setLastUpdatedUser(data.getUser().getUsername());
+        if (Objects.equals(Boolean.TRUE, isUpdate)) {
+            branch.setLastUpdatedUser(data.getUser().getUsername());
+        } else {
+            branch.setCreatedUser(data.getUser().getUsername());
+        }
         branch.setQrCode("empty");
 
         shopRepository.findById(data.getShopId())
@@ -113,7 +103,16 @@ public class BranchServiceImpl implements BranchService {
                             throw new ResourceNotFoundException(HttpStatus.NOT_FOUND,
                                     messageSource.getMessage("no.records.matches", new Object[0], Locale.ENGLISH));
                         });
-        return branch;
+
+        //Persist data without updated QR
+        Branch persistedRecord = branchRepository.save(branch);
+        data.setId(persistedRecord.getId());
+        data.setShopName(persistedRecord.getShop().getName());
+
+        String filePath = commonUtil.generateQrCode(QrCodeType.BRANCH, branchData(data));
+        branch.setQrCode(filePath);
+        log.info("QR file path : {} | Branch Id : {}", filePath, branch.getId());
+        return branchRepository.save(branch);
     }
 
     private void delete(Branch branch) {

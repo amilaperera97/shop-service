@@ -26,18 +26,10 @@ public class ValidationServiceImpl implements ValidationService {
     @Override
     public Boolean isValid(ValidateBranchInfoDto validateBranchInfo) throws ResourceNotFoundException {
         AtomicReference<Boolean> isValid = new AtomicReference<>(false);
-        shopRepository.findShopByIdAndName(Long.parseLong(String.valueOf(validateBranchInfo.getShopId())), validateBranchInfo.getShopName())
-                .ifPresentOrElse(shop -> {
-                            Long branchId = Long.parseLong(String.valueOf(validateBranchInfo.getBranchId()));
-                            ContactInfo branchContactInfo = entityConverter.convert(validateBranchInfo.getBranchContactInfo(), ContactInfo.class);
-
-                            branchRepository.findBranchByIdAndShopAndNameAndContactInfoCityAndContactInfoPostCodeAndIsDeletedFalse(branchId, shop,
-                                            validateBranchInfo.getBranchName(), branchContactInfo.getCity(),branchContactInfo.getPostCode())
-                                    .ifPresent(branch -> isValid.set(true));
-                        },
-                        () -> {
-                            throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Shop info is invalid!");
-                        });
+        shopRepository.findShopByIdAndName(Long.parseLong(String.valueOf(validateBranchInfo.getShopId())), validateBranchInfo.getShopName()).ifPresentOrElse(shop -> {
+            Long branchId = Long.parseLong(String.valueOf(validateBranchInfo.getBranchId()));
+            branchRepository.findBranchByIdAndShopAndNameAndContactInfoCityAndContactInfoPostCodeAndIsDeletedFalse(branchId, shop, validateBranchInfo.getBranchName(), validateBranchInfo.getBranchContactInfo().getCity(), validateBranchInfo.getBranchContactInfo().getPostCode()).ifPresentOrElse(branch -> isValid.set(true), () -> log.error("Branch info invalid : {}", validateBranchInfo));
+        }, () -> log.error("Shop info invalid : {}", validateBranchInfo));
         return isValid.get();
     }
 }

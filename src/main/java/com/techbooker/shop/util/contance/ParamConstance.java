@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ParamConstance {
     //QR data params
-    public static final String BRANCH_ID = "branch_id";
+    public static final String BRANCH_ID = "branch-id";
     public static final String BRANCH_NAME = "branch-name";
     public static final String SHOP_ID = "shop-id";
     public static final String BRANCH_POSTCODE = "branch-postcode";
