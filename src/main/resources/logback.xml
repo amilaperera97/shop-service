@@ -8,7 +8,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS, Asia/Kolkata} [%X{trace-id}] %highlight(%-5level) --- [%t] %highlight(%C{1}) : %m%n
+                %d{yyyy-MM-dd HH:mm:ss.SSS, UK} [%X{trace-id}] %highlight(%-5level) --- [%t] %highlight(%C{1}) : %m%n
             </pattern>
         </encoder>
     </appender>
@@ -16,10 +16,10 @@
     <appender name="SPRING_LOG_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_DIR}/shop-service-${hostname}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/shop-service-${hostname}-%d{yyyy-MM-dd, Asia/Kolkata}.log</fileNamePattern>
-        </rollingPolicy> %d{yyyy-MM-dd, Asia/Kolkata}
+            <fileNamePattern>${LOG_DIR}/shop-service-${hostname}-%d{yyyy-MM-dd, UK,GBR}.log</fileNamePattern>
+        </rollingPolicy> %d{yyyy-MM-dd, UK, GBR}
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS, Asia/Kolkata} [%X{trace-id}] %5p --- %C{1} : %m%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS, UK, GBR} [%X{trace-id}] %5p --- %C{1} : %m%n</pattern>
         </encoder>
     </appender>
 

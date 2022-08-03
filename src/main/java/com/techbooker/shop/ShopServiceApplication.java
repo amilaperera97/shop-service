@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableTransactionManagement
 @EnableFeignClients
 @EnableConfigurationProperties(ShopServiceProperties.class)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableResourceServer
 public class ShopServiceApplication {
 
     public static void main(String[] args) {
@@ -28,4 +32,5 @@ public class ShopServiceApplication {
                 .messageConverters(new StringHttpMessageConverter(), new MappingJackson2HttpMessageConverter())
                 .build();
     }
+
 }

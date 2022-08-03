@@ -6,6 +6,7 @@ import com.techbooker.sm.util.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,7 @@ public class ShopController {
     }
 
     @GetMapping(value = SHOP, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseDto<List<ShopDataDto>> findAll() {
         return new ResponseDto<List<ShopDataDto>>().buildSuccessMsgWithData(shopService.findAll());
     }

@@ -22,7 +22,7 @@ public class ValidationController {
     private final ValidationService validationService;
 
     @PostMapping(value = BRANCH_VALIDATION)
-    public ResponseDto<Boolean> validBranch(@RequestBody @Valid ValidateBranchInfoDto validateBranchInfo) {
+    public ResponseDto<Boolean> isValidBranch(@RequestBody @Valid ValidateBranchInfoDto validateBranchInfo) {
         return new ResponseDto<Boolean>().buildSuccessMsgWithData(validationService.isValid(validateBranchInfo));
     }
 }

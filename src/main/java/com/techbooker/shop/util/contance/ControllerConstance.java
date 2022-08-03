@@ -16,4 +16,9 @@ public class ControllerConstance {
     //Check validation
     public static final String BRANCH_VALIDATION = "/valid-branch";
     public static final String SHOP_VALIDATION = "/valid-shop";
+
+    //Endpoint info
+    public static final String ENDPOINT_DATA = "/endpoint";
+
+    public static final String PUBLIC = "/public";
 }
