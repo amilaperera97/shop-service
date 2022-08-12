@@ -1,12 +1,11 @@
 package com.techbooker.shop.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpMethod;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,14 +18,15 @@ import java.util.List;
 @AllArgsConstructor
 public class EndpointData extends CommonModel {
 
-    @Column(name = "feature_name")
-    private String featureName;
+    @Column(name = "host")
+    private String host;
 
-    @Column(name = "endpoint")
-    private String endpoint;
+    @Column(name = "endpoint_url")
+    private String endpointUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
+    @JsonBackReference
     private Shop shop;
 
     @Enumerated(EnumType.STRING)
@@ -51,7 +51,10 @@ public class EndpointData extends CommonModel {
     @Column(name = "http_method", nullable = false)
     private HttpMethod httpMethod;
 
-    @OneToMany(mappedBy = "endpointData", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<ParamData> paramData;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "endpoint_operation", nullable = false)
+    private Operations operation;
+
+    @OneToMany(mappedBy = "id",cascade = CascadeType.PERSIST)
+    private List<ExternalParamModel> endPointParams;
 }

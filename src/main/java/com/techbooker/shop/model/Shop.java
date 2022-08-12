@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,4 +23,9 @@ public class Shop extends CommonModel {
     @JoinColumn(name = "contact_info_id", nullable = false)
     private ContactInfo contactInfo;
 
+    @OneToMany(mappedBy = "id")
+    private List<Branch> branches;
+
+    @OneToMany(mappedBy = "id")
+    private List<EndpointData> endpointData;
 }

@@ -1,5 +1,6 @@
 package com.techbooker.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Branch extends CommonModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
+    @JsonBackReference
     private Shop shop;
 
     @Column(name = "name")

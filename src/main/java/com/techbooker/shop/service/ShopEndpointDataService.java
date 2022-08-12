@@ -8,4 +8,6 @@ public interface ShopEndpointDataService {
 
     List<EndpointDataDto> findAll();
     List<EndpointDataDto> findByShopId(Long shopId);
+
+    EndpointDataDto save(EndpointDataDto endpointData);
 }

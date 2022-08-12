@@ -8,9 +8,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,7 +21,8 @@ import static com.techbooker.shop.util.contance.ControllerConstance.*;
 @Valid
 @AllArgsConstructor
 @EnableOAuth2Sso
-public class ShopEndpointDataController extends WebSecurityConfigurerAdapter {
+public class ShopEndpointDataController {
+//public class ShopEndpointDataController extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,5 +38,10 @@ public class ShopEndpointDataController extends WebSecurityConfigurerAdapter {
     @GetMapping(value = PUBLIC + ENDPOINT_DATA, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseDto<List<EndpointDataDto>> findAll() {
         return new ResponseDto<List<EndpointDataDto>>().buildSuccessMsgWithData(shopEndpointDataService.findAll());
+    }
+
+    @PostMapping(value = ENDPOINT_DATA, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseDto<EndpointDataDto> save(@RequestBody EndpointDataDto endpointData) {
+        return new ResponseDto<EndpointDataDto>().buildSuccessMsgWithData(shopEndpointDataService.save(endpointData));
     }
 }

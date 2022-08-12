@@ -1,8 +1,6 @@
 package com.techbooker.shop.dto;
 
-import com.techbooker.shop.model.ContentType;
-import com.techbooker.shop.model.ParamData;
-import com.techbooker.shop.model.WebserviceType;
+import com.techbooker.shop.model.*;
 import com.techbooker.sm.util.dto.CommonDataDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,14 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EndpointDataDto extends CommonDataDto {
-    private String featureName;
-    private String endpoint;
+    private String host;
+    private String endpointUrl;
     private ShopDataDto shop;
+    private Long shopId;
     private WebserviceType wsType;
     private ContentType requestBodyType;
     private String requestBody;
     private ContentType responseBodyType;
     private String responseBody;
     private HttpMethod httpMethod;
-    private List<ParamData> paramData;
+    private Operations operation;
+    private List<EndPointParamDto> endPointParams;
 }
